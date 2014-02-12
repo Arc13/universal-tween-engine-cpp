@@ -8,7 +8,7 @@
 #ifndef __Linear__
 #define __Linear__
 
-#include "TweenEquation.h"
+#include <TweenEngine/TweenEquation.h>
 
 namespace TweenEngine
 {

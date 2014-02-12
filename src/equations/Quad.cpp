@@ -11,7 +11,7 @@
  * @author Aurelien Ribon | http://www.aurelienribon.com/
  */
 
-#include "Quad.h"
+#include <TweenEngine/equations/Quad.h>
 
 namespace TweenEngine
 {

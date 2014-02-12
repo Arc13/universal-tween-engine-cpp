@@ -5,8 +5,8 @@
 //  Licensed under Apache License 2.0 - http://www.apache.org/licenses/LICENSE-2.0
 //
 
-#include "TweenManager.h"
-#include "BaseTween.h"
+#include <TweenEngine/TweenManager.h>
+#include <TweenEngine/BaseTween.h>
 
 namespace TweenEngine
 {

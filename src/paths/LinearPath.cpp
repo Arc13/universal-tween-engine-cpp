@@ -6,7 +6,7 @@
 //
 
 #include <math.h>
-#include "LinearPath.h"
+#include <TweenEngine/paths/LinearPath.h>
 
 namespace TweenEngine
 {

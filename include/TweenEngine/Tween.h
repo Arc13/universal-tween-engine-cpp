@@ -8,16 +8,17 @@
 #ifndef __Tween__
 #define __Tween__
 
-#include "BaseTween.h"
-#include "Pool.h"
-#include "TweenEquation.h"
-#include "TweenPath.h"
-#include "TweenEquations.h"
-#include "TweenPaths.h"
+#include <TweenEngine/BaseTween.h>
+#include <TweenEngine/Pool.h>
+#include <TweenEngine/TweenEquation.h>
+#include <TweenEngine/TweenPath.h>
+#include <TweenEngine/TweenEquations.h>
+#include <TweenEngine/TweenPaths.h>
 
 namespace TweenEngine
 {
-    typedef int (^Accessor)(int cmd, float *values);
+    // typedef int (^Accessor)(int cmd, float *values);
+    typedef int (*Accessor)(int, float*);
 
     class TweenPool;
     class TweenPoolCallback;

@@ -8,7 +8,7 @@
 #ifndef __Sine__
 #define __Sine__
 
-#include "TweenEquation.h"
+#include <TweenEngine/TweenEquation.h>
 
 namespace TweenEngine
 {

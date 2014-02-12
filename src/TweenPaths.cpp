@@ -5,10 +5,10 @@
 //  Licensed under Apache License 2.0 - http://www.apache.org/licenses/LICENSE-2.0
 //
 
-#include "TweenPaths.h"
+#include <TweenEngine/TweenPaths.h>
 
-#include "LinearPath.h"
-#include "CatmullRom.h"
+#include <TweenEngine/paths/LinearPath.h>
+#include <TweenEngine/paths/CatmullRom.h>
 
 namespace TweenEngine
 {

@@ -8,7 +8,7 @@
 #ifndef __Back__
 #define __Back__
 
-#include "TweenEquation.h"
+#include <TweenEngine/TweenEquation.h>
 
 namespace TweenEngine
 {

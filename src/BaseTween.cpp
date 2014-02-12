@@ -8,9 +8,8 @@
 //#define NDEBUG
 #include <assert.h>
 
-#include "BaseTween.h"
-
-#include "TweenManager.h"
+#include <TweenEngine/BaseTween.h>
+#include <TweenEngine/TweenManager.h>
 
 namespace TweenEngine
 {
@@ -23,9 +22,9 @@ namespace TweenEngine
 		delayStart = duration = repeatDelay = currentTime = deltaTime = 0;
 		isStartedFlag = isInitializedFlag = isFinishedFlag = isKilledFlag = isPausedFlag = false;
         
-		callback = NULL;
+		callback = nullptr;
 		callbackTriggers = TweenCallback::COMPLETE;
-		userData = NULL;
+		userData = nullptr;
         
 		isAutoRemoveEnabled = isAutoStartEnabled = true;
     }
@@ -334,7 +333,7 @@ namespace TweenEngine
     
     void BaseTween::callCallback(int type)
     {
-        if (callback != NULL && (callbackTriggers & type) > 0) callback->onEvent(type, this);
+        if (callback != nullptr && (callbackTriggers & type) > 0) callback->onEvent(type, this);
     }
     
     bool BaseTween::isReverse(int step)

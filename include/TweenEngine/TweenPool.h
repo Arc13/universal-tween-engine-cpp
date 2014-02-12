@@ -8,8 +8,8 @@
 #ifndef __TweenPool__
 #define __TweenPool__
 
-#include "Pool.h"
-#include "Tween.h"
+#include <TweenEngine/Pool.h>
+#include <TweenEngine/Tween.h>
 
 namespace TweenEngine
 {

@@ -6,7 +6,7 @@
 //
 
 #include <math.h>
-#include "Sine.h"
+#include <TweenEngine/equations/Sine.h>
 
 namespace TweenEngine
 {

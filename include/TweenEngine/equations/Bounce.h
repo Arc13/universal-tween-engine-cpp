@@ -8,7 +8,7 @@
 #ifndef __Bounce__
 #define __Bounce__
 
-#include "TweenEquation.h"
+#include <TweenEngine/TweenEquation.h>
 
 namespace TweenEngine
 {

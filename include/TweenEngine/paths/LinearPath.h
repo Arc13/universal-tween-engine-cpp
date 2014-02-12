@@ -8,7 +8,7 @@
 #ifndef __LinearPath__
 #define __LinearPath__
 
-#include "TweenPath.h"
+#include <TweenEngine/TweenPath.h>
 
 namespace TweenEngine
 {

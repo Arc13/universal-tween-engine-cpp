@@ -8,7 +8,7 @@
 #ifndef __Expo__
 #define __Expo__
 
-#include "TweenEquation.h"
+#include <TweenEngine/TweenEquation.h>
 
 namespace TweenEngine
 {

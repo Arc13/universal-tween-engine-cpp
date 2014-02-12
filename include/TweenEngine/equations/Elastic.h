@@ -8,7 +8,7 @@
 #ifndef __Elastic__
 #define __Elastic__
 
-#include "TweenEquation.h"
+#include <TweenEngine/TweenEquation.h>
 
 namespace TweenEngine
 {

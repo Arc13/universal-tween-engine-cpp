@@ -80,10 +80,10 @@
 
 //#define NDEBUG
 #include <assert.h>
-#include <Block.h>
+// #include <Block.h>
 
-#include "Tween.h"
-#include "TweenPool.h"
+#include <TweenEngine/Tween.h>
+#include <TweenEngine/TweenPool.h>
 
 namespace TweenEngine
 {
@@ -266,7 +266,7 @@ namespace TweenEngine
 	Tween &Tween::call(TweenCallback &callback)
     {
 		Tween &tween = *(pool.get());
-		tween.setup(NULL, 0);
+		tween.setup(nullptr, 0);
 		tween.setCallback(&callback);
 		tween.setCallbackTriggers(TweenCallback::START);
 		return tween;
@@ -284,7 +284,7 @@ namespace TweenEngine
 	Tween &Tween::mark()
     {
 		Tween &tween = *(pool.get());
-		tween.setup(NULL, 0);
+		tween.setup(nullptr, 0);
 		return tween;
 	}
     
@@ -301,7 +301,7 @@ namespace TweenEngine
         accessorBufferSize = combinedAttrsLimit;
         pathBuffer = new float[(2+waypointsLimit)*combinedAttrsLimit];
         pathBufferSize = (2+waypointsLimit)*combinedAttrsLimit;
-        accessor = NULL;
+        accessor = nullptr;
     }
     
     Tween::~Tween()
@@ -311,15 +311,15 @@ namespace TweenEngine
         delete waypoints;
         delete accessorBuffer;
         delete pathBuffer;
-        if (accessor != NULL) Block_release(accessor);
+        // if (accessor != nullptr) Block_release(accessor);
     }
 
     void Tween::reset()
     {
         BaseTween::reset();
         
-        equation = NULL;
-        pathAlgorithm = NULL;
+        equation = nullptr;
+        pathAlgorithm = nullptr;
         isFrom = isRelative = false;
 		combinedAttrsCnt = waypointsCnt = 0;
         
@@ -331,18 +331,19 @@ namespace TweenEngine
 			pathBuffer = new float[(2+waypointsLimit)*combinedAttrsLimit];
 		}
         
-        if (accessor != NULL)
-        {
-            Block_release(accessor);
-            accessor = NULL;
-        }
+        // if (accessor != nullptr)
+        // {
+            // Block_release(accessor);
+            accessor = nullptr;
+        // }
     }
     
     void Tween::setup(Accessor accessor, float duration)
     {
         assert(duration >= 0);
         
-        this->accessor = Block_copy(accessor);
+        // this->accessor = Block_copy(accessor);
+        this->accessor = accessor;
 		this->duration = duration;
     }
    
@@ -662,7 +663,7 @@ namespace TweenEngine
 
     Tween &Tween::build()
     {
-        if (accessor != NULL)
+        if (accessor != nullptr)
         {
             combinedAttrsCnt = accessor(ACCESSOR_READ, accessorBuffer);
         }
@@ -693,7 +694,7 @@ namespace TweenEngine
     
 	void Tween::updateOverride(int step, int lastStep, bool isIterationStep, float delta)
     {
-		if (equation == NULL) return;
+		if (equation == nullptr) return;
         
 		// Case iteration end has been reached
         
@@ -733,7 +734,7 @@ namespace TweenEngine
 		float time = isReverse(step) ? duration - getCurrentTime() : getCurrentTime();
 		float t = equation->compute(time/duration);
         
-		if (waypointsCnt == 0 || pathAlgorithm == NULL)
+		if (waypointsCnt == 0 || pathAlgorithm == nullptr)
         {
 			for (int i=0; i<combinedAttrsCnt; i++)
             {

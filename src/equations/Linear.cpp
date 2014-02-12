@@ -10,7 +10,7 @@
  * @author Aurelien Ribon | http://www.aurelienribon.com/
  */
 
-#include "Linear.h"
+#include <TweenEngine/equations/Linear.h>
 
 namespace TweenEngine
 {

@@ -8,7 +8,7 @@
 #ifndef __Quint__
 #define __Quint__
 
-#include "TweenEquation.h"
+#include <TweenEngine/TweenEquation.h>
 
 namespace TweenEngine
 {

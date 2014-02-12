@@ -25,7 +25,7 @@
 #include <algorithm>
 #include <vector>
 
-#include "BaseTween.h"
+#include <TweenEngine/BaseTween.h>
 
 namespace TweenEngine
 {

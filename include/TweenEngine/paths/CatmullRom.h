@@ -8,7 +8,7 @@
 #ifndef __CatmullRom__
 #define __CatmullRom__
 
-#include "TweenPath.h"
+#include <TweenEngine/TweenPath.h>
 
 namespace TweenEngine
 {

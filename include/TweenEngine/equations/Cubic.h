@@ -8,7 +8,7 @@
 #ifndef __Cubic__
 #define __Cubic__
 
-#include "TweenEquation.h"
+#include <TweenEngine/TweenEquation.h>
 
 namespace TweenEngine
 {

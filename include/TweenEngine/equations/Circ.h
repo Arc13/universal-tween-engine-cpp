@@ -8,7 +8,7 @@
 #ifndef __Circ__
 #define __Circ__
 
-#include "TweenEquation.h"
+#include <TweenEngine/TweenEquation.h>
 
 namespace TweenEngine
 {

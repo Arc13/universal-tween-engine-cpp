@@ -23,7 +23,7 @@
 #ifndef __BaseTween__
 #define __BaseTween__
 
-#include "TweenCallback.h"
+#include <TweenEngine/TweenCallback.h>
 
 namespace TweenEngine
 {

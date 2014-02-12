@@ -8,7 +8,7 @@
 #ifndef __TweenPaths__
 #define __TweenPaths__
 
-#include "TweenPath.h"
+#include <TweenEngine/TweenPath.h>
 
 namespace TweenEngine
 {

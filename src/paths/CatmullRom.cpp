@@ -6,7 +6,7 @@
 //
 
 #include <math.h>
-#include "CatmullRom.h"
+#include <TweenEngine/paths/CatmullRom.h>
 
 namespace TweenEngine
 {

@@ -5,8 +5,8 @@
 //  Licensed under Apache License 2.0 - http://www.apache.org/licenses/LICENSE-2.0
 //
 
-#include "Circ.h"
 #include <math.h>
+#include <TweenEngine/equations/Circ.h>
 
 namespace TweenEngine
 {

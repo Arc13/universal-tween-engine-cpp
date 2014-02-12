@@ -8,7 +8,7 @@
 #ifndef __Quart__
 #define __Quart__
 
-#include "TweenEquation.h"
+#include <TweenEngine/TweenEquation.h>
 
 namespace TweenEngine
 {

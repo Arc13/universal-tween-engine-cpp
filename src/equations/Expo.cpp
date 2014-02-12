@@ -6,7 +6,7 @@
 //
 
 #include <math.h>
-#include "Expo.h"
+#include <TweenEngine/equations/Expo.h>
 
 namespace TweenEngine
 {
