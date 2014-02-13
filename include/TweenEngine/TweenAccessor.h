@@ -68,6 +68,7 @@
 
 namespace TweenEngine
 {
+    template<class T>
     class TweenAccessor
     {
         
@@ -84,7 +85,7 @@ namespace TweenEngine
          * @param returnValues An array which should be modified by this method.
          * @return The count of modified slots from the returnValues array.
          */
-        virtual int getValues(void *target,  int tweenType, float *returnValues) = 0;
+        virtual int getValues(T& target,  int tweenType, float *returnValues) = 0;
 
         /**
          * This method is called by the Tween Engine each time a running tween
@@ -94,7 +95,7 @@ namespace TweenEngine
          * @param tweenType An integer representing the tween type.
          * @param newValues The new values determined by the Tween Engine.
          */
-        virtual void setValues(void *target, int tweenType, floar *newValues) = 0;
+        virtual void setValues(T& target, int tweenType, float *newValues) = 0;
     };
 
 }

@@ -1,4 +1,4 @@
-PROJECT = tweenengine.a
+PROJECT = libtween.a
 CXX = g++
 AR = ar
 CXXFLAGS = -g -Wall -pedantic -std=c++11

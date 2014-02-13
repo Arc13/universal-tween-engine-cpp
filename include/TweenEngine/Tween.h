@@ -8,6 +8,7 @@
 #ifndef __Tween__
 #define __Tween__
 
+#include <TweenEngine/Tweenable.h>
 #include <TweenEngine/BaseTween.h>
 #include <TweenEngine/Pool.h>
 #include <TweenEngine/TweenEquation.h>
@@ -17,9 +18,6 @@
 
 namespace TweenEngine
 {
-    // typedef int (^Accessor)(int cmd, float *values);
-    typedef int (*Accessor)(int, float*);
-
     class TweenPool;
     class TweenPoolCallback;
     
@@ -32,6 +30,8 @@ namespace TweenEngine
         static int waypointsLimit;
         
         // Main
+        Tweenable *targetObj;
+        int type;
         TweenEquation *equation;
         TweenPath *pathAlgorithm;
 
@@ -54,10 +54,8 @@ namespace TweenEngine
 
         //static TweenPoolCallback *poolCallback;
         static TweenPool &pool;
-
-        Accessor accessor;
         
-        void setup(Accessor accessor, float duration);
+        void setup(Tweenable *target, int tweenType, float duration);
         
     protected:
         virtual void reset();
@@ -76,10 +74,10 @@ namespace TweenEngine
         
         static int getPoolSize();
         static void ensurePoolCapacity(int minCapacity);
-      
-        static Tween &to(Accessor accessor, float duration);
-        static Tween &from(Accessor accessor, float duration);
-        static Tween &set(Accessor accessor);
+
+        static Tween &to(Tweenable& target, int tweenType, float duration);
+        static Tween &from(Tweenable& target, int tweenType, float duration);
+        static Tween &set(Tweenable& target, int tweenType);
         static Tween &call(TweenCallback &callback);
         static Tween &mark();
         

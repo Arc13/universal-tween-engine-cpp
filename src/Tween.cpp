@@ -80,7 +80,6 @@
 
 //#define NDEBUG
 #include <assert.h>
-// #include <Block.h>
 
 #include <TweenEngine/Tween.h>
 #include <TweenEngine/TweenPool.h>
@@ -119,7 +118,7 @@ namespace TweenEngine
 	void Tween::ensurePoolCapacity(int minCapacity) { pool.ensureCapacity(minCapacity); }
 
     TweenPool &Tween::pool = *(new TweenPool());
-    
+
 	// -------------------------------------------------------------------------
 	// Static -- factories
 	// -------------------------------------------------------------------------
@@ -155,10 +154,10 @@ namespace TweenEngine
 	 * @param duration The duration of the interpolation, in milliseconds.
 	 * @return The generated Tween.
 	 */
-	Tween &Tween::to(Accessor accessor, float duration)
+	Tween &Tween::to(Tweenable& target, int tweenType, float duration)
     {
 		Tween &tween = *(pool.get());
-		tween.setup(accessor, duration);
+		tween.setup(&target, tweenType, duration);
         tween.ease(TweenEquations::easeInOutQuad);
 		tween.path(TweenPaths::catmullRom);
 		return tween;
@@ -194,10 +193,10 @@ namespace TweenEngine
 	 * @param duration The duration of the interpolation, in milliseconds.
 	 * @return The generated Tween.
 	 */
-	Tween &Tween::from(Accessor accessor, float duration)
+	Tween &Tween::from(Tweenable& target, int tweenType, float duration)
     {
 		Tween &tween = *(pool.get());
-		tween.setup(accessor, duration);
+		tween.setup(&target, tweenType, duration);
         tween.ease(TweenEquations::easeInOutQuad);
 		tween.path(TweenPaths::catmullRom);
 		tween.isFrom = true;
@@ -233,10 +232,10 @@ namespace TweenEngine
 	 * @param tweenType The desired type of interpolation.
 	 * @return The generated Tween.
 	 */
-	Tween &Tween::set(Accessor accessor)
+	Tween &Tween::set(Tweenable& target, int tweenType)
     {
 		Tween &tween = *(pool.get());
-		tween.setup(accessor, 0);
+		tween.setup(&target, tweenType, 0);
         tween.ease(TweenEquations::easeInOutQuad);
 		return tween;
 	}
@@ -266,7 +265,7 @@ namespace TweenEngine
 	Tween &Tween::call(TweenCallback &callback)
     {
 		Tween &tween = *(pool.get());
-		tween.setup(nullptr, 0);
+		tween.setup(nullptr, -1, 0);
 		tween.setCallback(&callback);
 		tween.setCallbackTriggers(TweenCallback::START);
 		return tween;
@@ -284,7 +283,7 @@ namespace TweenEngine
 	Tween &Tween::mark()
     {
 		Tween &tween = *(pool.get());
-		tween.setup(nullptr, 0);
+		tween.setup(nullptr, -1, 0);
 		return tween;
 	}
     
@@ -301,7 +300,7 @@ namespace TweenEngine
         accessorBufferSize = combinedAttrsLimit;
         pathBuffer = new float[(2+waypointsLimit)*combinedAttrsLimit];
         pathBufferSize = (2+waypointsLimit)*combinedAttrsLimit;
-        accessor = nullptr;
+        targetObj = nullptr;
     }
     
     Tween::~Tween()
@@ -334,16 +333,18 @@ namespace TweenEngine
         // if (accessor != nullptr)
         // {
             // Block_release(accessor);
-            accessor = nullptr;
+            targetObj = nullptr;
         // }
+            type = -1;
     }
     
-    void Tween::setup(Accessor accessor, float duration)
+    void Tween::setup(Tweenable *target, int tweenType, float duration)
     {
         assert(duration >= 0);
         
         // this->accessor = Block_copy(accessor);
-        this->accessor = accessor;
+        this->targetObj = target;
+        this->type = tweenType;
 		this->duration = duration;
     }
    
@@ -663,9 +664,9 @@ namespace TweenEngine
 
     Tween &Tween::build()
     {
-        if (accessor != nullptr)
+        if (targetObj != nullptr)
         {
-            combinedAttrsCnt = accessor(ACCESSOR_READ, accessorBuffer);
+            combinedAttrsCnt = targetObj->getValues(type, accessorBuffer);
         }
         assert(combinedAttrsCnt <= combinedAttrsLimit);
 		return *this;
@@ -675,7 +676,7 @@ namespace TweenEngine
     
 	void Tween::initializeOverride()
     {
-        accessor(ACCESSOR_READ, startValues);
+        targetObj->getValues(type, startValues);
         
 		for (int i=0; i<combinedAttrsCnt; i++) {
 			targetValues[i] += isRelative ? startValues[i] : 0;
@@ -700,13 +701,13 @@ namespace TweenEngine
         
 		if (!isIterationStep && step > lastStep)
         {
-            accessor(ACCESSOR_WRITE, isReverse(lastStep) ? startValues : targetValues);
+            targetObj->setValues(type, isReverse(lastStep) ? startValues : targetValues);
 			return;
 		}
         
 		if (!isIterationStep && step < lastStep)
         {
-            accessor(ACCESSOR_WRITE, isReverse(lastStep) ? targetValues : startValues);
+            targetObj->setValues(type, isReverse(lastStep) ? targetValues : startValues);
 			return;
 		}
         
@@ -720,12 +721,12 @@ namespace TweenEngine
         
 		if (duration < 0.00000000001f && delta > -0.00000000001f)
         {
-            accessor(ACCESSOR_WRITE, isReverse(step) ? targetValues : startValues);
+            targetObj->setValues(type, isReverse(step) ? targetValues : startValues);
 			return;
 		}
         
 		if (duration < 0.00000000001f && delta < 0.00000000001f) {
-			accessor(ACCESSOR_WRITE, isReverse(step) ? startValues : targetValues);
+			targetObj->setValues(type, isReverse(step) ? startValues : targetValues);
 			return;
 		}
         
@@ -757,17 +758,15 @@ namespace TweenEngine
 			}
 		}
         
-		accessor(ACCESSOR_WRITE, accessorBuffer);
+		targetObj->setValues(type, accessorBuffer);
 	}
 
-	void Tween::forceStartValues()
-    {
-		accessor(ACCESSOR_WRITE, startValues);
+	void Tween::forceStartValues(){
+		targetObj->setValues(type, startValues);
 	}
     
-	void Tween::forceEndValues()
-    {
-		accessor(ACCESSOR_WRITE, targetValues);
+	void Tween::forceEndValues(){
+		targetObj->setValues(type, targetValues);
 	}
     
     int Tween::getTweenCount() { return 1; }
