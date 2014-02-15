@@ -1,6 +1,6 @@
 PROJECT = libtween.a
-CXX = g++
-AR = ar
+CXX = arm-none-eabi-g++
+AR = arm-none-eabi-ar
 CXXFLAGS = -g -Wall -pedantic -std=c++11
 
 INCLUDES = -Iinclude/
