@@ -1,7 +1,11 @@
 PROJECT = libtween.a
 CXX = arm-none-eabi-g++
 AR = arm-none-eabi-ar
-CXXFLAGS = -g -Wall -pedantic -std=c++11
+CXXFLAGS = -g -Wall -pedantic -std=c++11 -fno-rtti -fno-exceptions
+
+TEST_CXX = g++
+TEST_AR = ar
+TEST_CXXFLAGS = -g -Wall -pedantic -std=c++11 -fno-rtti -fno-exceptions -DTESTING
 
 INCLUDES = -Iinclude/
 SOURCES = $(wildcard src/*.cpp) $(wildcard src/*/*.cpp)
@@ -27,3 +31,10 @@ clean:
 build/%.o: src/%.cpp
 	$(CXX) $(INCLUDES) $(CXXFLAGS) -c $< -o $@
 	$(CXX) -MM $< > build/$*.d
+
+testvars:
+	$(eval CXX := $(TEST_CXX))
+	$(eval AR := $(TEST_AR))
+	$(eval CXXFLAGS := $(TEST_CXXFLAGS))
+
+test: clean testvars all
