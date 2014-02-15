@@ -8,6 +8,9 @@
 #include <math.h>
 #include <TweenEngine/equations/Elastic.h>
 
+#define M_PI        3.14159265358979323846
+#define M_TWOPI         (M_PI * 2.0)
+
 namespace TweenEngine
 {
     float ElasticIn::compute(float t) {
@@ -21,10 +24,10 @@ namespace TweenEngine
             a = 1;
             s = p/4.0;
         } else {
-            s = p/(2*M_PI) * (float)asin(1/a);
+            s = p/(M_TWOPI) * (float)asin(1/a);
         }
         t -= 1;
-        return -(a*(float)pow(2,10*t) * (float)sin((t-s)*(2*M_PI)/p ));
+        return -(a*(float)pow(2,10*t) * (float)sin((t-s)*(M_TWOPI)/p ));
     }
     const char *ElasticIn::toString() { return "Elastic.IN"; }
     void ElasticIn::setAmplitude(float a) { this->amplitude = a; this->isAmplitudeSet = true; }
@@ -41,9 +44,9 @@ namespace TweenEngine
             a = 1;
             s = p/4.0;
         } else {
-            s = p/(2*M_PI) * (float)asin(1/a);
+            s = p/(M_TWOPI) * (float)asin(1/a);
         }
-        return a*(float)pow(2,-10*t) * (float)sin((t-s)*(2*M_PI)/p ) + 1;
+        return a*(float)pow(2,-10*t) * (float)sin((t-s)*(M_TWOPI)/p ) + 1;
     }
     const char *ElasticOut::toString() { return "Elastic.OUT"; }
     void ElasticOut::setAmplitude(float a) { this->amplitude = a; this->isAmplitudeSet = true; }
@@ -61,14 +64,14 @@ namespace TweenEngine
             a = 1;
             s = p/4.0;
         } else {
-            s = p/(2*M_PI) * (float)asin(1/a);
+            s = p/(M_TWOPI) * (float)asin(1/a);
         }
         if (t < 1) {
             t -= 1;
-            return -0.5f*(a*(float)pow(2,10*t) * (float)sin((t-s)*(2*M_PI)/p));
+            return -0.5f*(a*(float)pow(2,10*t) * (float)sin((t-s)*(M_TWOPI)/p));
         } else {
             t -= 1;
-            return a*(float)pow(2,-10*t) * (float)sin((t-s)*(2*M_PI)/p)*0.5f + 1;
+            return a*(float)pow(2,-10*t) * (float)sin((t-s)*(M_TWOPI)/p)*0.5f + 1;
         }
     }
     const char *ElasticInOut::toString() { return "Elastic.INOUT"; }

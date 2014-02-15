@@ -6,7 +6,6 @@
 //
 
 //#define NDEBUG
-#include <assert.h>
 
 #include <TweenEngine/BaseTween.h>
 #include <TweenEngine/TweenManager.h>
@@ -397,7 +396,7 @@ namespace TweenEngine
     {
         if (!isIterationStep && repeatCnt >= 0 && step < 0 && currentTime+deltaTime >= 0)
         {
-            assert(step == -1);
+            // assert(step == -1);
             isIterationStep = true;
             step = 0;
             float delta = 0-currentTime;
@@ -410,7 +409,7 @@ namespace TweenEngine
         }
         else if (!isIterationStep && repeatCnt >= 0 && step > repeatCnt*2 && currentTime+deltaTime < 0)
         {
-            assert(step == repeatCnt*2 + 1);
+            // assert(step == repeatCnt*2 + 1);
             isIterationStep = true;
             step = repeatCnt*2;
             float delta = 0-currentTime;

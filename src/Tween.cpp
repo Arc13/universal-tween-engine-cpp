@@ -79,7 +79,6 @@
  */
 
 //#define NDEBUG
-#include <assert.h>
 
 #include <TweenEngine/Tween.h>
 #include <TweenEngine/TweenPool.h>
@@ -340,9 +339,7 @@ namespace TweenEngine
     
     void Tween::setup(Tweenable *target, int tweenType, float duration)
     {
-        assert(duration >= 0);
-        
-        // this->accessor = Block_copy(accessor);
+        // assert(duration >= 0);
         this->targetObj = target;
         this->type = tweenType;
 		this->duration = duration;
@@ -664,11 +661,10 @@ namespace TweenEngine
 
     Tween &Tween::build()
     {
-        if (targetObj != nullptr)
-        {
+        if (targetObj != nullptr) {
             combinedAttrsCnt = targetObj->getValues(type, accessorBuffer);
         }
-        assert(combinedAttrsCnt <= combinedAttrsLimit);
+        // assert(combinedAttrsCnt <= combinedAttrsLimit);
 		return *this;
 	}
     
@@ -713,9 +709,9 @@ namespace TweenEngine
         
 		// Validation
         
-		assert(isIterationStep);
-		assert(getCurrentTime() >= 0);
-		assert(getCurrentTime() <= duration);
+		// assert(isIterationStep);
+		// assert(getCurrentTime() >= 0);
+		// assert(getCurrentTime() <= duration);
         
 		// Case duration equals zero
         

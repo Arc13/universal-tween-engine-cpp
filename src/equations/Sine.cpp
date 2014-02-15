@@ -8,12 +8,15 @@
 #include <math.h>
 #include <TweenEngine/equations/Sine.h>
 
+#define M_PI		3.14159265358979323846
+#define M_PI_2		1.57079632679489661923
+
 namespace TweenEngine
 {
-    float SineIn::compute(float t) { return (float)-cos(t * (M_PI/2)) + 1; }
+    float SineIn::compute(float t) { return (float)-cos(t * (M_PI_2)) + 1; }
     const char *SineIn::toString() { return "Sine.IN"; }
     
-    float SineOut::compute(float t) { return (float)sin(t * (M_PI/2)); }
+    float SineOut::compute(float t) { return (float)sin(t * (M_PI_2)); }
     const char *SineOut::toString() { return "Sine.OUT"; }
     
     float SineInOut::compute(float t) { return -0.5f * ((float)cos(M_PI*t) - 1); }
