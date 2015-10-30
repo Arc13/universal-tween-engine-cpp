@@ -540,6 +540,30 @@ namespace TweenEngine
 		return *this;
 	}
 
+	/**
+	 * Adds a waypoint to the path. The default path runs from the start values
+	 * to the end values linearly. If you add waypoints, the default path will
+	 * use a smooth catmull-rom spline to navigate between the waypoints, but
+	 * you can change this behavior by using the {@link #path(TweenPath)}
+	 * method.
+	 * <p/>
+	 * Note that if you want waypoints relative to the start values, use one of
+	 * the .targetRelative() methods to define your target.
+	 *
+	 * @param targetValue The target of this waypoint.
+	 * @return The current tween, for chaining instructions.
+	 */
+	Tween &Tween::waypoint(float targetValue)
+	{
+		if (waypointsCnt < waypointsLimit)
+		{
+			waypoints[waypointsCnt] = targetValue;
+			waypointsCnt += 1;
+		}
+
+		return *this;
+	}
+
     /**
 	 * Adds a waypoint to the path. The default path runs from the start values
 	 * to the end values linearly. If you add waypoints, the default path will

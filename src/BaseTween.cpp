@@ -24,6 +24,7 @@ namespace TweenEngine
 		callback = nullptr;
 		callbackTriggers = TweenCallback::COMPLETE;
 		userData = nullptr;
+		callbacks.clear();
         
 		isAutoRemoveEnabled = isAutoStartEnabled = true;
     }
@@ -171,6 +172,12 @@ namespace TweenEngine
 	BaseTween &BaseTween::setCallback(TweenCallback *callback)
     {
 		this->callback = callback;
+		return *this;
+	}
+
+	BaseTween &BaseTween::setCallback(int type, const TweenCallbackFunction& callback)
+	{
+		callbacks[type] = callback;
 		return *this;
 	}
     
@@ -332,7 +339,11 @@ namespace TweenEngine
     
     void BaseTween::callCallback(int type)
     {
-        if (callback != nullptr && (callbackTriggers & type) > 0) callback->onEvent(type, this);
+		auto callback = callbacks.find(type);
+		if (callback != callbacks.end()) {
+			callback->second(this);
+		}
+//        if (callback != nullptr && (callbackTriggers & type) > 0) callback->onEvent(type, this);
     }
     
     bool BaseTween::isReverse(int step)
@@ -481,7 +492,7 @@ namespace TweenEngine
                 
                 updateOverride(step, step-1, isIterationStep, delta);
                 callCallback(TweenCallback::END);
-                
+
                 if (step > repeatCnt*2 && repeatCnt >= 0) callCallback(TweenCallback::COMPLETE);
                 currentTime = 0;
                 

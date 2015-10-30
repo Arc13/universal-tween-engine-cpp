@@ -23,11 +23,15 @@
 #ifndef __BaseTween__
 #define __BaseTween__
 
+#include <functional>
+#include <map>
 #include <TweenEngine/TweenCallback.h>
 
 namespace TweenEngine
 {
     class TweenManager;
+
+	typedef std::function<void(BaseTween* source)> TweenCallbackFunction;
     
     class BaseTween
     {
@@ -52,6 +56,7 @@ namespace TweenEngine
         TweenCallback *callback;
         int callbackTriggers;
         void *userData;
+		std::map<int, TweenCallbackFunction> callbacks;
 
         // Update
         void initialize();
@@ -97,6 +102,7 @@ namespace TweenEngine
         BaseTween &repeat(int count, float delay);
         BaseTween &repeatYoyo(int count, float delay);
         BaseTween &setCallback(TweenCallback *callback);
+        BaseTween &setCallback(int type, const TweenCallbackFunction& callback);
         BaseTween &setCallbackTriggers(int flags);
         BaseTween &setUserData(void *data);
         
