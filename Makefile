@@ -1,6 +1,6 @@
 PROJECT = libtween
-CXX = arm-none-eabi-g++
-AR = arm-none-eabi-ar
+CXX = powerpc-eabi-g++
+AR = powerpc-eabi-ar
 CXXFLAGS = -g -Wall -pedantic -std=c++11 -fno-rtti -fno-exceptions
 
 INCLUDES = -Iinclude/
