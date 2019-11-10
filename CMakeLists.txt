@@ -3,13 +3,7 @@ add_definitions(-D__wiiu__)
 set(CMAKE_TOOLCHAIN_FILE $ENV{WUT_ROOT}/share/wut.toolchain.cmake)
 
 project(tween)
-
-include("$ENV{WUT_ROOT}/share/wut.cmake" REQUIRED)
-
-include_directories($ENV{DEVKITPRO}/portlibs/ppc/include
-        $ENV{DEVKITPRO}/portlibs/wiiu/include)
-link_directories($ENV{DEVKITPRO}/portlibs/ppc/lib
-        $ENV{DEVKITPRO}/portlibs/wiiu/lib)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall -pedantic -std=c++11 -fno-rtti -fno-exceptions")
 
 include_directories(include)
 
